@@ -1,6 +1,7 @@
 const myLibrary = [];
 let para = document.createElement("p");
 const body = document.getElementById("body");
+// let count = -2;
 
 addBookToLibrary("title", "author", 500, true);
 addBookToLibrary("othertitle", "otherauthor", 50);
@@ -30,8 +31,7 @@ function addBookToLibrary(title, author, pages, read, image) {
 function displayBooks() {
   for (let i = 0; i < myLibrary.length; i++) {
     card = document.createElement("div");
-    btnRead.setAttribute("id",myLibrary.length)
-    btnDestroy.setAttribute("id",myLibrary.length)
+    card.id = `card-${i}`;
     cardImage = document.createElement("img");
     cardBody = document.createElement("div");
     cardTitle = document.createElement("h5");
@@ -40,7 +40,9 @@ function displayBooks() {
     listGroupItem2 = document.createElement("li");
     cardBodyBottom = document.createElement("div");
     btnRead = document.createElement("button");
+    btnRead.id = `read-${i}`;
     btnDestroy = document.createElement("button");
+    btnDestroy.id = `destroy-${i}`;
     cardImage.src = myLibrary[i].image;
     cardTitle.innerHTML = myLibrary[i].title;
     listGroupItem1.innerHTML = myLibrary[i].author;
@@ -57,7 +59,7 @@ function displayBooks() {
     btnDestroy.classList.add("btn", "btn-danger");
     btnRead.innerHTML = readBook(myLibrary[i].read);
     btnDestroy.innerHTML = "Destroy";
-  
+
     body.appendChild(card);
     card.appendChild(cardImage);
     card.appendChild(cardBody);
@@ -68,8 +70,11 @@ function displayBooks() {
     card.appendChild(cardBodyBottom);
     cardBodyBottom.appendChild(btnRead);
     cardBodyBottom.appendChild(btnDestroy);
-    btnDestroy.addEventListener("click", deleteBook(myLibrary[i]));
-    btnRead.addEventListener("click", clickBtnRead(myLibrary[i]));
+    btnDestroy.click = deleteBook(btnDestroy);
+    // document
+    //   .querySelector(`#destroy-${i}`)
+    //   .addEventListener("click", deleteBook(btnDestroy));
+    // btnRead.addEventListener("click", clickBtnRead(btnRead));
   }
 }
 
@@ -81,15 +86,19 @@ function readBook(book) {
   }
 }
 
-function deleteBook(book) {
-  delete book;
+function deleteBook(btn) {
+  // count++;
+  i = btn.id.split("").pop();
+
+  delete myLibrary[i];
+  document.querySelector(`#card-${i}`).remove();
 }
 
-function clickBtnRead(book) {
-  let i = myLibrary.indexOf(book);
-  if (book.read != false) {
-    myLibrary[i].read = false;
-  } else {
-    myLibrary[i].read = true;
-  }
-}
+// function clickBtnRead(book) {
+//   let i = myLibrary.indexOf(book);
+//   if (book.read != false) {
+//     myLibrary[i].read = false;
+//   } else {
+//     myLibrary[i].read = true;
+//   }
+// }
