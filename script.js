@@ -3,6 +3,12 @@ let para = document.createElement("p");
 const body = document.getElementById("body");
 // let count = -2;
 
+let closeButton = document.getElementById("close-button")
+let screen = document.getElementById("screen")
+let form = document.getElementById("form")
+let button = document.getElementById("add-book")
+button.addEventListener("click", openForm)
+closeButton.addEventListener("click", openForm)
 addBookToLibrary("title", "author", 500, true);
 addBookToLibrary("othertitle", "otherauthor", 50);
 addBookToLibrary("newtitle", "newauthor", 200, true);
@@ -70,7 +76,23 @@ function displayBooks() {
     card.appendChild(cardBodyBottom);
     cardBodyBottom.appendChild(btnRead);
     cardBodyBottom.appendChild(btnDestroy);
-    btnDestroy.click = deleteBook(btnDestroy);
+    btnDestroy.addEventListener("click", function (e){
+      i = e.target.id.split("").pop();
+      delete myLibrary[i];
+      document.querySelector(`#card-${i}`).remove();
+
+    })
+    btnRead.addEventListener("click", function (e){
+      i = e.target.id.split("").pop();
+      if (e.target.innerHTML == "Read") {
+        myLibrary[i].read = false;
+      e.target.innerHTML = "Not Read";
+      } else {
+        myLibrary[i].read = true;
+        e.target.innerHTML = "Read";
+      }
+
+    })
     // document
     //   .querySelector(`#destroy-${i}`)
     //   .addEventListener("click", deleteBook(btnDestroy));
@@ -102,3 +124,9 @@ function deleteBook(btn) {
 //     myLibrary[i].read = true;
 //   }
 // }
+
+function openForm() {
+  form.classList.toggle("form2")
+  screen.classList.toggle("form2")
+  closeButton.classList.toggle("form2")
+}
