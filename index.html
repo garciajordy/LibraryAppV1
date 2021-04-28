@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" media="screen" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link
+      rel="stylesheet"
+      media="screen"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    />
 
     <link
       rel="shortcut icon"
@@ -20,27 +24,69 @@
     <title>My Library</title>
   </head>
   <body class="text-center">
-    
     <div id="screen" class="form-screen form2"></div>
     <div id="form" class="form col-6 offset-3 mt-5 form2">
       <h1 class="text-center text-white">Add Book</h1>
-      <form action="/">
+      <form action="">
         <button id="close-button" class="btn btn-danger form2">X</button>
         <div class="input-group my-2">
-          <span class="input-group-text"><i class="fa fa-book" aria-hidden="true"></i></span>
-          <input type="text" class="form-control" name="title" id="title" placeholder="Book title">
+          <span class="input-group-text"
+            ><i class="fa fa-book" aria-hidden="true"></i
+          ></span>
+          <input
+            type="text"
+            oninput="formInputs()"
+            class="form-control"
+            name="title"
+            id="title"
+            placeholder="Book title"
+          />
         </div>
         <div class="input-group my-2">
-          <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
-          <input type="text" class="form-control" name="author" id="author" placeholder="Author">
-
+          <span class="input-group-text"
+            ><i class="fa fa-user" aria-hidden="true"></i
+          ></span>
+          <input
+            type="text"
+            oninput="formInputs()"
+            class="form-control"
+            name="author"
+            id="author"
+            placeholder="Author"
+          />
         </div>
         <div class="input-group my-2">
-          <span class="input-group-text"><i class="fa fa-file" aria-hidden="true"></i></span>
-          
-          <input type="number" class="form-control" name="pages" id="pages" placeholder="Pages">
+          <span class="input-group-text">
+            <i class="fas fa-image" aria-hidden="true"></i
+          ></span>
+          <input
+            type="text"
+            oninput="formInputs()"
+            class="form-control"
+            name="image"
+            id="image"
+            placeholder="Enter image url"
+          />
         </div>
-      <input class="btn btn-primary w-100" type="submit" value="Add Book">
+        <div class="input-group my-2">
+          <span class="input-group-text"
+            ><i class="fa fa-file" aria-hidden="true"></i
+          ></span>
+          <input
+            type="number"
+            oninput="formInputs()"
+            class="form-control"
+            name="pages"
+            id="pages"
+            placeholder="Pages"
+          />
+        </div>
+        <input
+          id="submit-book"
+          class="btn btn-primary w-100"
+          type="submit"
+          value="Add Book"
+        />
       </form>
     </div>
     <button class="btn btn-success m-5 w-25 p-2" id="add-book">Add Book</button>
