@@ -30,6 +30,8 @@ function addBookToLibrary(title, author, pages, read, image) {
 function displayBooks() {
   for (let i = 0; i < myLibrary.length; i++) {
     card = document.createElement("div");
+    btnRead.setAttribute("id",myLibrary.length)
+    btnDestroy.setAttribute("id",myLibrary.length)
     cardImage = document.createElement("img");
     cardBody = document.createElement("div");
     cardTitle = document.createElement("h5");
@@ -37,8 +39,8 @@ function displayBooks() {
     listGroupItem1 = document.createElement("li");
     listGroupItem2 = document.createElement("li");
     cardBodyBottom = document.createElement("div");
-    btnRead = document.createElement("a");
-    btnDestroy = document.createElement("a");
+    btnRead = document.createElement("button");
+    btnDestroy = document.createElement("button");
     cardImage.src = myLibrary[i].image;
     cardTitle.innerHTML = myLibrary[i].title;
     listGroupItem1.innerHTML = myLibrary[i].author;
@@ -55,8 +57,7 @@ function displayBooks() {
     btnDestroy.classList.add("btn", "btn-danger");
     btnRead.innerHTML = readBook(myLibrary[i].read);
     btnDestroy.innerHTML = "Destroy";
-    btnDestroy.addEventListener("click", deleteBook(myLibrary[i]));
-    btnRead.addEventListener("click", clickBtnRead(myLibrary[i]));
+  
     body.appendChild(card);
     card.appendChild(cardImage);
     card.appendChild(cardBody);
@@ -67,6 +68,8 @@ function displayBooks() {
     card.appendChild(cardBodyBottom);
     cardBodyBottom.appendChild(btnRead);
     cardBodyBottom.appendChild(btnDestroy);
+    btnDestroy.addEventListener("click", deleteBook(myLibrary[i]));
+    btnRead.addEventListener("click", clickBtnRead(myLibrary[i]));
   }
 }
 
@@ -84,7 +87,6 @@ function deleteBook(book) {
 
 function clickBtnRead(book) {
   let i = myLibrary.indexOf(book);
-  // console.log(i);
   if (book.read != false) {
     myLibrary[i].read = false;
   } else {
