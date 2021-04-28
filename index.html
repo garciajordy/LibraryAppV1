@@ -23,11 +23,11 @@
     />
     <title>My Library</title>
   </head>
-  <body class="text-center">
+  <body class="text-center g-2">
     <div id="screen" class="form-screen form2"></div>
     <div id="form" class="form col-6 offset-3 mt-5 form2">
       <h1 class="text-center text-white">Add Book</h1>
-      <form action="">
+      <div>
         <button id="close-button" class="btn btn-danger form2">X</button>
         <div class="input-group my-2">
           <span class="input-group-text"
@@ -35,7 +35,6 @@
           ></span>
           <input
             type="text"
-            oninput="formInputs()"
             class="form-control"
             name="title"
             id="title"
@@ -48,7 +47,6 @@
           ></span>
           <input
             type="text"
-            oninput="formInputs()"
             class="form-control"
             name="author"
             id="author"
@@ -61,7 +59,6 @@
           ></span>
           <input
             type="text"
-            oninput="formInputs()"
             class="form-control"
             name="image"
             id="image"
@@ -74,7 +71,6 @@
           ></span>
           <input
             type="number"
-            oninput="formInputs()"
             class="form-control"
             name="pages"
             id="pages"
@@ -87,7 +83,7 @@
           type="submit"
           value="Add Book"
         />
-      </form>
+      </div>
     </div>
     <button class="btn btn-success m-5 w-25 p-2" id="add-book">Add Book</button>
     <div id="body" class="row d-flex justify-content-center"></div>

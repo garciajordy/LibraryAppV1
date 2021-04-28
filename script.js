@@ -1,34 +1,41 @@
 const myLibrary = [];
-let para = document.createElement("p");
-const body = document.getElementById("body");
+const body = document.getElementById('body');
 let title;
 let author;
 let pages;
 let image;
-// let count = -2;
+const closeButton = document.getElementById('close-button');
+const screen = document.getElementById('screen');
+const form = document.getElementById('form');
+const button = document.getElementById('add-book');
+const submit = document.getElementById('submit-book');
+button.addEventListener('click', openForm);
+submit.addEventListener('click', openForm);
+closeButton.addEventListener('click', openForm);
+submit.addEventListener('click', () => {
+  title = document.getElementById('title').value;
+  author = document.getElementById('author').value;
+  pages = document.getElementById('pages').value;
+  image = document.getElementById('image').value;
+  if (image.length === 0) {
+    image = 'https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg';
+  }
+  addBookToLibrary(title, author, pages, image);
+});
+localStorageSetter();
 
-let closeButton = document.getElementById("close-button");
-let screen = document.getElementById("screen");
-let form = document.getElementById("form");
-let button = document.getElementById("add-book");
-let submit = document.getElementById("submit-book");
-button.addEventListener("click", openForm);
-closeButton.addEventListener("click", openForm);
-submit.addEventListener("click", addBookToLibrary(title, author, pages, image));
-
-addBookToLibrary("title", "author", 500, true);
-addBookToLibrary("othertitle", "otherauthor", 50);
-addBookToLibrary("newtitle", "newauthor", 200, true);
-addBookToLibrary("thetitle", "theauthor", 400, false);
-
-// displayBooks();
-
+function readBook(book) {
+  if (book) {
+    return 'Read';
+  }
+  return 'Not Read';
+}
 function Book(
   title,
   author,
   pages,
+  image = 'https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg',
   read = false,
-  image = "https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
 ) {
   this.image = image;
   this.title = title;
@@ -37,51 +44,53 @@ function Book(
   this.read = read;
 }
 
-function formInputs() {
-  title = document.getElementById("title").textContent;
-  author = document.getElementById("author").textContent;
-  pages = document.getElementById("pages").textContent;
-  image = document.getElementById("image").textContent;
+function localStorageSetter() {
+  for (let i = 0; i <= localStorage.length; i++) {
+    const book = localStorage.getItem(`book${i}`);
+    const newbook = JSON.parse(book);
+    if (newbook != null) {
+      myLibrary.push(newbook);
+    } else {
+      localStorage.removeItem(`book${i}`);
+    }
+  }
+  if (myLibrary.length > 0) {
+    displayBooks();
+  }
 }
 
-function addBookToLibrary(title, author, pages, image) {
-  let book = new Book(title, author, pages, image);
-  myLibrary.push(book);
-  displayBooks();
-}
-
-function displayBooks() {
-  // for (let i = 0; i < myLibrary.length; i++) {
-  i = myLibrary.length - 1;
-  card = document.createElement("div");
+function displayBook() {
+  const i = myLibrary.length - 1;
+  const card = document.createElement('div');
   card.id = `card-${i}`;
-  cardImage = document.createElement("img");
-  cardBody = document.createElement("div");
-  cardTitle = document.createElement("h5");
-  listGroup = document.createElement("ul");
-  listGroupItem1 = document.createElement("li");
-  listGroupItem2 = document.createElement("li");
-  cardBodyBottom = document.createElement("div");
-  btnRead = document.createElement("button");
+  const cardImage = document.createElement('img');
+  const cardBody = document.createElement('div');
+  const cardTitle = document.createElement('h5');
+  const listGroup = document.createElement('ul');
+  const listGroupItem1 = document.createElement('li');
+  const listGroupItem2 = document.createElement('li');
+  const cardBodyBottom = document.createElement('div');
+  const btnRead = document.createElement('button');
   btnRead.id = `read-${i}`;
-  btnDestroy = document.createElement("button");
+  const btnDestroy = document.createElement('button');
   btnDestroy.id = `destroy-${i}`;
-  cardImage.src = myLibrary[i].image;
+  cardImage.setAttribute('src', myLibrary[i].image);
+
   cardTitle.innerHTML = myLibrary[i].title;
   listGroupItem1.innerHTML = myLibrary[i].author;
   listGroupItem2.innerHTML = myLibrary[i].pages;
-  card.classList.add("card", "col-3");
-  cardImage.classList.add("card-img-top");
-  cardBody.classList.add("card-body");
-  cardTitle.classList.add("card-title");
-  listGroup.classList.add("list-group", "list-group-flush");
-  listGroupItem1.classList.add("list-group-item");
-  listGroupItem2.classList.add("list-group-item");
-  cardBodyBottom.classList.add("card-body");
-  btnRead.classList.add("btn", "btn-primary", "mr-2");
-  btnDestroy.classList.add("btn", "btn-danger");
+  card.classList.add('card', 'col-3');
+  cardImage.classList.add('card-img-top');
+  cardBody.classList.add('card-body');
+  cardTitle.classList.add('card-title');
+  listGroup.classList.add('list-group', 'list-group-flush');
+  listGroupItem1.classList.add('list-group-item');
+  listGroupItem2.classList.add('list-group-item');
+  cardBodyBottom.classList.add('card-body');
+  btnRead.classList.add('btn', 'btn-primary', 'mr-2');
+  btnDestroy.classList.add('btn', 'btn-danger');
   btnRead.innerHTML = readBook(myLibrary[i].read);
-  btnDestroy.innerHTML = "Destroy";
+  btnDestroy.innerHTML = 'Destroy';
 
   body.appendChild(card);
   card.appendChild(cardImage);
@@ -93,55 +102,92 @@ function displayBooks() {
   card.appendChild(cardBodyBottom);
   cardBodyBottom.appendChild(btnRead);
   cardBodyBottom.appendChild(btnDestroy);
-  btnDestroy.addEventListener("click", function (e) {
-    i = e.target.id.split("").pop();
+  btnDestroy.addEventListener('click', (e) => {
+    const i = e.target.id.split('').pop();
     delete myLibrary[i];
     document.querySelector(`#card-${i}`).remove();
   });
-  btnRead.addEventListener("click", function (e) {
-    i = e.target.id.split("").pop();
-    if (e.target.innerHTML == "Read") {
+  btnRead.addEventListener('click', (e) => {
+    const i = e.target.id.split('').pop();
+    if (e.target.innerHTML === 'Read') {
       myLibrary[i].read = false;
-      e.target.innerHTML = "Not Read";
+      e.target.innerHTML = 'Not Read';
     } else {
       myLibrary[i].read = true;
-      e.target.innerHTML = "Read";
+      e.target.innerHTML = 'Read';
     }
   });
-  // document
-  //   .querySelector(`#destroy-${i}`)
-  //   .addEventListener("click", deleteBook(btnDestroy));
-  // btnRead.addEventListener("click", clickBtnRead(btnRead));
-  // }
 }
+function addBookToLibrary(title, author, pages, image) {
+  const book = new Book(title, author, pages, image);
+  myLibrary.push(book);
+  const i = myLibrary.length;
+  localStorage.setItem(`book${i}`, JSON.stringify(book));
+  displayBook();
+}
+function displayBooks() {
+  for (let i = 0; i < myLibrary.length; i++) {
+    const card = document.createElement('div');
+    card.id = `card-${i}`;
+    const cardImage = document.createElement('img');
+    const cardBody = document.createElement('div');
+    const cardTitle = document.createElement('h5');
+    const listGroup = document.createElement('ul');
+    const listGroupItem1 = document.createElement('li');
+    const listGroupItem2 = document.createElement('li');
+    const cardBodyBottom = document.createElement('div');
+    const btnRead = document.createElement('button');
+    btnRead.id = `read-${i}`;
+    const btnDestroy = document.createElement('button');
+    btnDestroy.id = `destroy-${i}`;
+    cardImage.src = myLibrary[i].image;
+    cardImage.height = 350;
+    cardTitle.innerHTML = myLibrary[i].title;
+    listGroupItem1.innerHTML = myLibrary[i].author;
+    listGroupItem2.innerHTML = myLibrary[i].pages;
+    card.classList.add('card', 'col-3', 'm-4');
+    cardImage.classList.add('card-img-top');
+    cardBody.classList.add('card-body');
+    cardTitle.classList.add('card-title');
+    listGroup.classList.add('list-group', 'list-group-flush');
+    listGroupItem1.classList.add('list-group-item');
+    listGroupItem2.classList.add('list-group-item');
+    cardBodyBottom.classList.add('card-body');
+    btnRead.classList.add('btn', 'btn-primary', 'mr-2');
+    btnDestroy.classList.add('btn', 'btn-danger');
+    btnRead.innerHTML = readBook(myLibrary[i].read);
+    btnDestroy.innerHTML = 'Destroy';
 
-function readBook(book) {
-  if (book) {
-    return "Read";
-  } else {
-    return "Not Read";
+    body.appendChild(card);
+    card.appendChild(cardImage);
+    card.appendChild(cardBody);
+    cardBody.appendChild(cardTitle);
+    card.appendChild(listGroup);
+    listGroup.appendChild(listGroupItem1);
+    listGroup.appendChild(listGroupItem2);
+    card.appendChild(cardBodyBottom);
+    cardBodyBottom.appendChild(btnRead);
+    cardBodyBottom.appendChild(btnDestroy);
+    btnDestroy.addEventListener('click', (e) => {
+      i = e.target.id.split('').pop();
+      delete myLibrary[i];
+      document.querySelector(`#card-${i}`).remove();
+    });
+    btnRead.addEventListener('click', (e) => {
+      i = e.target.id.split('').pop();
+      if (e.target.innerHTML === 'Read') {
+        myLibrary[i].read = false;
+        e.target.innerHTML = 'Not Read';
+      } else {
+        myLibrary[i].read = true;
+        e.target.innerHTML = 'Read';
+      }
+    });
   }
 }
 
-function deleteBook(btn) {
-  // count++;
-  i = btn.id.split("").pop();
-
-  delete myLibrary[i];
-  document.querySelector(`#card-${i}`).remove();
-}
-
-// function clickBtnRead(book) {
-//   let i = myLibrary.indexOf(book);
-//   if (book.read != false) {
-//     myLibrary[i].read = false;
-//   } else {
-//     myLibrary[i].read = true;
-//   }
-// }
-
 function openForm() {
-  form.classList.toggle("form2");
-  screen.classList.toggle("form2");
-  closeButton.classList.toggle("form2");
+  form.classList.toggle('form2');
+  screen.classList.toggle('form2');
+  closeButton.classList.toggle('form2');
 }

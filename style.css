@@ -2,12 +2,14 @@
   color: red;
   padding: 3rem;
 }
+
 #close-button {
   position: fixed;
   top: 15px;
   right: 15px;
   z-index: 9999;
 }
+
 .form {
   position: fixed;
   top: 100px;
