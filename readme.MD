@@ -1,6 +1,6 @@
 # MyLibraryAppV1
 
-## In this project, we built a basic web based library appliction using JavaScript. One can add books to the library, delete the books and mark the book as read. We use local storage to store the data from the user.
+ In this project, we built a basic web based library appliction using JavaScript. One can add books to the library, delete the books and mark the book as read. We use local storage to store the data from the user.
 
 ![screenshot](./images/Screenshot1.png)
 ![screenshot](./images/Screenshot2.png)
@@ -15,7 +15,9 @@
 
 - Web Browser
 
-#### For HTTPS
+#### Getting Started
+
+ To get a local copy of the repository please run the following commands on your terminal:
 
 ```
 $ cd <folder>
