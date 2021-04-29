@@ -41,6 +41,29 @@ function Book(
   this.read = read;
 }
 
+function localStorageSetter() {
+  for (let i = 0; i < myLibrary.length; i += 1) {
+    const book = myLibrary[i];
+    if (book !== undefined) {
+      localStorage.setItem(`book${i + 1}`, JSON.stringify(book));
+    }
+  }
+}
+
+function changeReadButton(btnRead) {
+  btnRead.addEventListener('click', (e) => {
+    const i = e.target.id.split('').pop();
+    if (e.target.innerHTML === 'Read') {
+      myLibrary[i].read = false;
+      e.target.innerHTML = 'Not Read';
+    } else {
+      myLibrary[i].read = true;
+      e.target.innerHTML = 'Read';
+    }
+    localStorageSetter();
+  });
+}
+
 function displayBook(i = myLibrary.length - 1) {
   const card = document.createElement('div');
   card.id = `card-${i}`;
@@ -88,24 +111,10 @@ function displayBook(i = myLibrary.length - 1) {
     myLibrary.splice(i, 1);
     document.querySelector(`#card-${i}`).remove();
     localStorage.clear();
-    for (let i = 0; i < myLibrary.length; i += 1) {
-      const book = myLibrary[i];
-      if (book !== undefined) {
-        localStorage.setItem(`book${i + 1}`, JSON.stringify(book));
-      }
-    }
+    localStorageSetter();
   });
 
-  btnRead.addEventListener('click', (e) => {
-    const i = e.target.id.split('').pop();
-    if (e.target.innerHTML === 'Read') {
-      myLibrary[i].read = false;
-      e.target.innerHTML = 'Not Read';
-    } else {
-      myLibrary[i].read = true;
-      e.target.innerHTML = 'Read';
-    }
-  });
+  changeReadButton(btnRead);
 }
 
 function displayBooks() {
@@ -130,11 +139,19 @@ function localStorageGetter() {
 }
 localStorageGetter();
 function addBookToLibrary(title, author, pages, image) {
-  const book = new Book(title, author, pages, image);
-  myLibrary.push(book);
-  const i = myLibrary.length;
-  localStorage.setItem(`book${i}`, JSON.stringify(book));
-  displayBook();
+  if (title.length > 0 && author.length > 0 && pages.length > 0) {
+    const book = new Book(title, author, pages, image);
+    myLibrary.push(book);
+    const i = myLibrary.length;
+    localStorage.setItem(`book${i}`, JSON.stringify(book));
+    document.getElementById('title').value = '';
+    document.getElementById('author').value = '';
+    document.getElementById('pages').value = '';
+    document.getElementById('image').value = '';
+    displayBook();
+  } else {
+    openForm();
+  }
 }
 
 submit.addEventListener('click', () => {
