@@ -35,15 +35,15 @@ $ cd LibraryAppV1
 
 👤 **Jordy Garcia**
 
-- Github:[@garciajordy](https://github.com/garciajordy)
-- Email:[jordygarcia0119@gmail.com](https://mail.google.com/mail/?view=cm&source=mailto&to=jordygarcia0119@gmail.com)
-- LinkedIn:[Jordy Garcia](https://www.linkedin.com/in/jordy-garcia-675849206/)
+- Github: [@garciajordy](https://github.com/garciajordy)
+- Email: [jordygarcia0119@gmail.com](https://mail.google.com/mail/?view=cm&source=mailto&to=jordygarcia0119@gmail.com)
+- LinkedIn: [Jordy Garcia](https://www.linkedin.com/in/jordygarcia/)
 
 👤 **Malieze Afam Ifeanyi**
 
 - GitHub: [@chrystalme](https://github.com/chrystalme)
 - Twitter: [@afam_ifeanyi](https://twitter.com/afam_ifeanyi)
-- LinkedIn: [Malieze Afam Ifeanyi(chrys)](https://linkedin.com/afam-chrys)
+- LinkedIn: [Malieze Afam Ifeanyi(chrys)](https://linkedin.com/in/afam-chrys)
 
 ## 🤝 Contributing
 
