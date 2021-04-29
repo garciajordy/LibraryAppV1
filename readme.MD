@@ -1,11 +1,65 @@
-# javascript
+# MyLibraryAppV1
 
-npm install --save-dev eslint@7.x eslint-config-airbnb-base@14.x eslint-plugin-import@2.x babel-eslint@10.x
+ In this project, we built a basic web based library appliction using JavaScript. One can add books to the library, delete the books and mark the book as read. We use local storage to store the data from the user.
 
-npx eslint .
+![screenshot](./images/Screenshot1.png)
+![screenshot](./images/Screenshot2.png)
 
-# css
+## Built With
 
-npm install --save-dev stylelint@13.x stylelint-scss@3.x stylelint-config-standard@21.x stylelint-csstree-validator@1.x
+- JavaScript
+- Html
+- Bootstrap
 
-npx stylelint "\*.{css,scss}"
+### System requirements
+
+- Web Browser
+
+#### Getting Started
+
+ To get a local copy of the repository please run the following commands on your terminal:
+
+```
+$ cd <folder>
+```
+
+```
+$ git clone https://github.com/garciajordy/LibraryAppV1.git
+```
+
+```
+$ cd LibraryAppV1
+```
+
+## Authors
+
+👤 **Jordy Garcia**
+
+- Github:[@garciajordy](https://github.com/garciajordy)
+- Email:[jordygarcia0119@gmail.com](https://mail.google.com/mail/?view=cm&source=mailto&to=jordygarcia0119@gmail.com)
+- LinkedIn:[Jordy Garcia](https://www.linkedin.com/in/jordy-garcia-675849206/)
+
+👤 **Malieze Afam Ifeanyi**
+
+- GitHub: [@chrystalme](https://github.com/chrystalme)
+- Twitter: [@afam_ifeanyi](https://twitter.com/afam_ifeanyi)
+- LinkedIn: [Malieze Afam Ifeanyi(chrys)](https://linkedin.com/afam-chrys)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](https://github.com/garciajordy/LibraryAppV1/issues).
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+- [Odin Projects](https://www.theodinproject.com/courses/)
+- [Microverse](https://microverse.com)
+
+## 📝 License
+
+This project is [MIT](https://mit-license.org/) licensed.

@@ -4,6 +4,7 @@ let title;
 let author;
 let pages;
 let image;
+
 const closeButton = document.getElementById('close-button');
 const screen = document.getElementById('screen');
 const form = document.getElementById('form');
@@ -105,6 +106,7 @@ function displayBook(i = myLibrary.length - 1) {
   card.appendChild(cardBodyBottom);
   cardBodyBottom.appendChild(btnRead);
   cardBodyBottom.appendChild(btnDestroy);
+
   btnDestroy.addEventListener('click', (e) => {
     let i = e.target.id.split('').pop();
     i = parseInt(i, 10);
