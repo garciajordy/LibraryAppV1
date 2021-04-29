@@ -9,20 +9,16 @@ const screen = document.getElementById('screen');
 const form = document.getElementById('form');
 const button = document.getElementById('add-book');
 const submit = document.getElementById('submit-book');
+
+function openForm() {
+  form.classList.toggle('form2');
+  screen.classList.toggle('form2');
+  closeButton.classList.toggle('form2');
+}
+
 button.addEventListener('click', openForm);
 submit.addEventListener('click', openForm);
 closeButton.addEventListener('click', openForm);
-submit.addEventListener('click', () => {
-  title = document.getElementById('title').value;
-  author = document.getElementById('author').value;
-  pages = document.getElementById('pages').value;
-  image = document.getElementById('image').value;
-  if (image.length === 0) {
-    image = 'https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg';
-  }
-  addBookToLibrary(title, author, pages, image);
-});
-localStorageGetter();
 
 function readBook(book) {
   if (book) {
@@ -45,21 +41,6 @@ function Book(
   this.read = read;
 }
 
-function localStorageGetter() {
-  for (let i = 0; i <= localStorage.length; i++) {
-    const book = localStorage.getItem(`book${i}`);
-    const newbook = JSON.parse(book);
-    if (newbook != null) {
-      myLibrary.push(newbook);
-    } else {
-      localStorage.removeItem(`book${i}`);
-    }
-  }
-  if (myLibrary.length > 0) {
-    displayBooks();
-  }
-}
-
 function displayBook(i = myLibrary.length - 1) {
   const card = document.createElement('div');
   card.id = `card-${i}`;
@@ -75,24 +56,22 @@ function displayBook(i = myLibrary.length - 1) {
   const btnDestroy = document.createElement('button');
   btnDestroy.id = `destroy-${i}`;
   cardImage.setAttribute('src', myLibrary[i].image);
-  cardImage.height = 300
-
+  cardImage.height = 300;
   cardTitle.innerHTML = myLibrary[i].title;
   listGroupItem1.innerHTML = myLibrary[i].author;
   listGroupItem2.innerHTML = myLibrary[i].pages;
-  card.classList.add('card', 'col-3', "m-3");
+  card.classList.add('card', 'col-3', 'm-3');
   cardImage.classList.add('card-img-top');
   cardBody.classList.add('card-body');
   cardTitle.classList.add('card-title');
   listGroup.classList.add('list-group', 'list-group-flush');
   listGroupItem1.classList.add('list-group-item');
   listGroupItem2.classList.add('list-group-item');
-  cardBodyBottom.classList.add('card-body', "d-flex", "flex-column");
+  cardBodyBottom.classList.add('card-body', 'd-flex', 'flex-column');
   btnRead.classList.add('btn', 'btn-primary', 'my-2');
   btnDestroy.classList.add('btn', 'btn-danger');
   btnRead.innerHTML = readBook(myLibrary[i].read);
   btnDestroy.innerHTML = 'Destroy';
-
   body.appendChild(card);
   card.appendChild(cardImage);
   card.appendChild(cardBody);
@@ -105,20 +84,18 @@ function displayBook(i = myLibrary.length - 1) {
   cardBodyBottom.appendChild(btnDestroy);
   btnDestroy.addEventListener('click', (e) => {
     let i = e.target.id.split('').pop();
-    i = parseInt(i)
-    myLibrary.splice(i - 1, 1);
-    let num = parseInt(i + 1)
-    string = `book${num}`
-    document.querySelector(`#card-${num-1}`).remove();
-    localStorage.clear()
-    for (let i = 0; i < myLibrary.length; i++){
-      book = myLibrary[i]
+    i = parseInt(i, 10);
+    myLibrary.splice(i, 1);
+    document.querySelector(`#card-${i}`).remove();
+    localStorage.clear();
+    for (let i = 0; i < myLibrary.length; i += 1) {
+      const book = myLibrary[i];
       if (book !== undefined) {
-          localStorage.setItem(`book${i+1}`, JSON.stringify(book))
-
+        localStorage.setItem(`book${i + 1}`, JSON.stringify(book));
       }
     }
   });
+
   btnRead.addEventListener('click', (e) => {
     const i = e.target.id.split('').pop();
     if (e.target.innerHTML === 'Read') {
@@ -130,6 +107,28 @@ function displayBook(i = myLibrary.length - 1) {
     }
   });
 }
+
+function displayBooks() {
+  for (let i = 0; i < myLibrary.length; i += 1) {
+    displayBook(i);
+  }
+}
+
+function localStorageGetter() {
+  for (let i = 0; i <= localStorage.length; i += 1) {
+    const book = localStorage.getItem(`book${i}`);
+    const newbook = JSON.parse(book);
+    if (newbook != null) {
+      myLibrary.push(newbook);
+    } else {
+      localStorage.removeItem(`book${i}`);
+    }
+  }
+  if (myLibrary.length > 0) {
+    displayBooks();
+  }
+}
+localStorageGetter();
 function addBookToLibrary(title, author, pages, image) {
   const book = new Book(title, author, pages, image);
   myLibrary.push(book);
@@ -137,14 +136,14 @@ function addBookToLibrary(title, author, pages, image) {
   localStorage.setItem(`book${i}`, JSON.stringify(book));
   displayBook();
 }
-function displayBooks() {
-  for (let i = 0; i < myLibrary.length; i++) {
-    displayBook(i)
-  }
-}
 
-function openForm() {
-  form.classList.toggle('form2');
-  screen.classList.toggle('form2');
-  closeButton.classList.toggle('form2');
-}
+submit.addEventListener('click', () => {
+  title = document.getElementById('title').value;
+  author = document.getElementById('author').value;
+  pages = document.getElementById('pages').value;
+  image = document.getElementById('image').value;
+  if (image.length === 0) {
+    image = 'https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg';
+  }
+  addBookToLibrary(title, author, pages, image);
+});
