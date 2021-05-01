@@ -15,6 +15,10 @@ In this project, we built a basic web based library appliction using JavaScript.
 
 - Web Browser
 
+## Live link
+
+[Live demo](https://garciajordy.github.io/LibraryAppV1/)
+
 ## Getting Started
 
 To get a local copy of the repository please run the following commands on your terminal:
